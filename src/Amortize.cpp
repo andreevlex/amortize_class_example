@@ -342,7 +342,7 @@ std::ostream &operator<<(std::ostream &os, const Amortize &amt) {
     return os << "Total interest: " << amt.getTotalInterest() << endl;
 }
 
-bool Amortize::saveToFile(const char *filename) {
+bool Amortize::saveToFile(const char *filename, const char delimiter, const bool includeHeader) {
 
     if(NULL == filename)
     {
@@ -360,29 +360,31 @@ bool Amortize::saveToFile(const char *filename) {
     fout.open(filename,ios_base::out | ios_base::trunc);
     if(!fout.is_open())
     {
-        cerr << "Файл не может быть открыт \n";
+        cerr << "File can not to be open\n";
         return false;
     }
 
     /* header */
-    fout << "Year"                  << ','
-         << "Month"                 << ','
-         << "Principal payment"     << ','
-         << "Interest payment"      << ','
-         << "PV Principal payment"  << ','
-         << "PV Interest payment"   << ','
-         << "Ratio"                 << ','
-         << endl;
+    if(includeHeader) {
+        fout << "Year"                  << delimiter
+             << "Month"                 << delimiter
+             << "Principal payment"     << delimiter
+             << "Interest payment"      << delimiter
+             << "PV Principal payment"  << delimiter
+             << "PV Interest payment"   << delimiter
+             << "Ratio"                 << delimiter
+             << endl;
+    }
 
     for(auto iter = calcTable.begin(); iter != calcTable.end(); iter++)
     {
 
-        fout << iter->rowYear               << ','
-             << iter->rowMonth              << ','
-             << iter->principal_payment     << ','
-             << iter->interest_payment      << ','
-             << iter->principal_payment_pv  << ','
-             << iter->interest_payment_pv   << ','
+        fout << iter->rowYear               << delimiter
+             << iter->rowMonth              << delimiter
+             << iter->principal_payment     << delimiter
+             << iter->interest_payment      << delimiter
+             << iter->principal_payment_pv  << delimiter
+             << iter->interest_payment_pv   << delimiter
              << iter->ratio                 << endl;
     }
 

@@ -82,7 +82,7 @@ public:
 
     bool Calculate();
     void ShowTable(std::ostream & =std::cout);
-    bool saveToFile(const char * ="");
+    bool saveToFile(const char * ="", const char delimiter=';', const bool includeHeader = true);
     Amortize &operator =(const Amortize &);
     friend std::ostream & operator <<(std::ostream &, const Amortize &);
     friend bool operator ==(const Amortize &, const Amortize &);
